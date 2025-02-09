@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { Phone, Mail } from 'lucide-react'
 import { getUserById } from '../actions/actions'
 import DeleteButton from './delete-button'
+import { UserEditDialog } from './user-edit-dialog'
 
 interface UserCardProps {
   userId: string
@@ -33,20 +34,13 @@ export default async function UserCard({ userId }: UserCardProps) {
           <Badge variant="secondary" className="w-fit mt-1">ID: {user.id}</Badge>
         </div>
       </CardHeader>
-      <CardContent className="grid gap-4">
-        <div className="flex items-center gap-2">
-          <Phone className="w-4 h-4 text-muted-foreground" />
-          <span>{user.phoneNumber}</span>
-        </div>
-        {user.email && (
-          <div className="flex items-center gap-2">
-            <Mail className="w-4 h-4 text-muted-foreground" />
-            <span>{user.email}</span>
-          </div>
-        )}
+      <CardContent>
+        <p><Phone className="inline-block mr-2" />{user.phoneNumber}</p>
+        <p><Mail className="inline-block mr-2" />{user.email}</p>
       </CardContent>
-      <CardFooter className="flex justify-between items-center">
+      <CardFooter className="flex justify-end gap-2">
         <DeleteButton userId={user.id} />
+        <UserEditDialog user={user} />
       </CardFooter>
     </Card>
   )
